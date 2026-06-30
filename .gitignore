@@ -1,0 +1,8 @@
+node_modules
+.env
+.env.*
+!.env.example
+# Local Netlify folder
+.netlify
+netlify-dev.log
+netlify-dev.err.log

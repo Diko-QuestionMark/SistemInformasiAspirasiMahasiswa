@@ -1,0 +1,23 @@
+{
+  "name": "sisteminformasiaspirasimahasiswa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "netlify dev",
+    "check:frontend": "node --check app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "pg": "^8.21.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^26.1.0",
+    "typescript": "^6.0.3"
+  }
+}
