@@ -6,33 +6,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
-  /* Core Palette */
-  --blue-main:    #5B7FE8;
-  --blue-deep:    #3D5CC7;
-  --blue-pale:    #EEF2FF;
-  --blue-glow:    rgba(91,127,232,0.18);
+  /* Core Palette (Marine Blue Theme) */
+  --blue-main:    #0B5A9C;
+  --blue-deep:    #063C69;
+  --blue-pale:    #EBF4FA;
+  --blue-glow:    rgba(11, 90, 156, 0.18);
 
-  --peach:        #FFD3A0;
-  --peach-soft:   rgba(255,211,160,0.35);
-  --mint:         #A7E8D0;
-  --mint-soft:    rgba(167,232,208,0.3);
-  --lavender:     #C7B8F5;
-  --lavender-soft:rgba(199,184,245,0.25);
-  --coral:        #FF9BAB;
+  --peach:        #D97706; /* Amber for 'Lainnya' */
+  --peach-soft:   rgba(217, 119, 6, 0.15);
+  --mint:         #059669; /* Emerald for 'Organisasi' */
+  --mint-soft:    rgba(5, 150, 105, 0.15);
+  --lavender:     #4F46E5; /* Indigo for 'Akademik' */
+  --lavender-soft:rgba(79, 70, 229, 0.15);
+  --coral:        #0891B2; /* Cyan for 'Fasilitas' */
 
-  --bg:           #F0F4FF;
+  --bg:           #F4F7FA;
   --card:         #FFFFFF;
-  --ink:          #2D3358;
-  --muted:        #7A85A8;
-  --border:       rgba(91,127,232,0.15);
+  --ink:          #1E293B;
+  --muted:        #64748B;
+  --border:       rgba(11, 90, 156, 0.15);
 
   /* Status */
-  --wait:         #F59E0B;
-  --wait-bg:      rgba(245,158,11,0.12);
-  --process:      #5B7FE8;
-  --process-bg:   rgba(91,127,232,0.12);
-  --done:         #10B981;
-  --done-bg:      rgba(16,185,129,0.12);
+  --wait:         #D97706;
+  --wait-bg:      rgba(217, 119, 6, 0.12);
+  --process:      #0B5A9C;
+  --process-bg:   rgba(11, 90, 156, 0.12);
+  --done:         #059669;
+  --done-bg:      rgba(5, 150, 105, 0.12);
 }
 
 /* ---- Reset ---- */
@@ -108,8 +108,8 @@ body::after {
 }
 
 .navbar-hero:not(.scrolled) .logo { color: white; }
-.navbar-hero:not(.scrolled) .logo i { color: var(--peach); }
-.navbar-hero:not(.scrolled) .logo span span { color: var(--peach); }
+.navbar-hero:not(.scrolled) .logo i { color: #0B5A9C; }
+.navbar-hero:not(.scrolled) .logo span span { color: #0B5A9C; }
 
 .logo i { color: var(--blue-main); transition: color 0.3s; }
 .logo span span { color: var(--blue-main); }
@@ -134,8 +134,8 @@ body::after {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(91,127,232,0.45);
-  background: linear-gradient(135deg, #6B8FFF 0%, var(--blue-main) 100%);
+  box-shadow: 0 8px 24px rgba(11,90,156,0.45);
+  background: linear-gradient(135deg, #1C74BD 0%, var(--blue-main) 100%);
 }
 
 /* Navbar-hero: ghost white button before scroll */
@@ -155,7 +155,7 @@ body::after {
   text-align: center;
   padding: 130px 20px 70px;
   overflow: hidden;
-  background: linear-gradient(160deg, #3D5CC7 0%, #5B7FE8 40%, #8EB0FF 100%);
+  background: linear-gradient(160deg, #063C69 0%, #0B5A9C 50%, #4FA3E3 100%);
 }
 
 /* Decorative blobs inside hero */
@@ -174,7 +174,7 @@ body::after {
   position: absolute;
   bottom: -80px; left: -60px;
   width: 300px; height: 300px;
-  background: rgba(255,211,160,0.15);
+  background: rgba(11, 90, 156, 0.25);
   border-radius: 40% 60% 30% 70% / 60% 40% 70% 30%;
   pointer-events: none;
 }
@@ -199,7 +199,7 @@ body::after {
 
 .highlight {
   display: inline-block;
-  color: var(--peach);
+  color: #0B5A9C;
   position: relative;
 }
 
@@ -208,7 +208,7 @@ body::after {
   position: absolute;
   bottom: 2px; left: 0; right: 0;
   height: 6px;
-  background: var(--peach);
+  background: #0B5A9C;
   opacity: 0.3;
   border-radius: 3px;
 }
@@ -353,16 +353,16 @@ body::after {
 }
 
 .card[data-category="Fasilitas"]::before {
-  background: linear-gradient(90deg, #5B7FE8, #8EB0FF);
+  background: linear-gradient(90deg, #0891B2, #22D3EE);
 }
 .card[data-category="Akademik"]::before {
-  background: linear-gradient(90deg, #A78BFA, #C7B8F5);
+  background: linear-gradient(90deg, #4F46E5, #818CF8);
 }
 .card[data-category="Organisasi"]::before {
-  background: linear-gradient(90deg, #10B981, var(--mint));
+  background: linear-gradient(90deg, #059669, #34D399);
 }
 .card[data-category="Lainnya"]::before {
-  background: linear-gradient(90deg, #F59E0B, var(--peach));
+  background: linear-gradient(90deg, #D97706, #FBBF24);
 }
 
 .card:hover {
@@ -392,11 +392,11 @@ body::after {
 }
 
 /* Per-category badge colours */
-.badge-fasilitas { background: rgba(91,127,232,0.12); color: var(--blue-main); }
-.badge-akademik  { background: rgba(167,139,250,0.15); color: #7C3AED; }
-.badge-organisasi{ background: rgba(16,185,129,0.12);  color: #059669; }
-.badge-lainnya   { background: rgba(245,158,11,0.12);  color: #D97706; }
-.badge-private   { background: rgba(239,68,68,0.12);   color: #DC2626; }
+.badge-fasilitas { background: rgba(8,145,178,0.12); color: #0891B2; }
+.badge-akademik  { background: rgba(79,70,229,0.12); color: #4F46E5; }
+.badge-organisasi{ background: rgba(5,150,105,0.12); color: #059669; }
+.badge-lainnya   { background: rgba(217,119,6,0.12); color: #D97706; }
+.badge-private   { background: rgba(239,68,68,0.12); color: #DC2626; }
 
 .private-badge {
   background: rgba(239,68,68,0.12) !important;
@@ -852,3 +852,113 @@ input:focus, select:focus, textarea:focus {
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--blue-main); }
+
+/* ---- Skeleton Loader ---- */
+.skeleton {
+  background: #e2e8f0;
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.card.skeleton-card {
+  pointer-events: none;
+  cursor: default;
+}
+.card.skeleton-card:hover {
+  transform: none;
+  box-shadow: 0 4px 20px rgba(91,127,232,0.08);
+}
+.card.skeleton-card::before {
+  background: #cbd5e1;
+}
+
+.skeleton-badge {
+  width: 70px;
+  height: 24px;
+  border-radius: 50px;
+}
+.skeleton-title {
+  width: 80%;
+  height: 20px;
+  margin: 12px 20px 0;
+  border-radius: 6px;
+}
+.skeleton-text {
+  width: 90%;
+  height: 12px;
+  margin: 12px 20px 0;
+  border-radius: 6px;
+}
+.skeleton-text + .skeleton-text {
+  margin-top: 8px;
+}
+.skeleton-text.short {
+  width: 60%;
+}
+.skeleton-footer {
+  width: 100px;
+  height: 16px;
+  border-radius: 6px;
+}
+
+/* ---- Animations for Smoothness ---- */
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes fadeSlideUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInScale {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.hero h1 {
+  opacity: 0;
+  animation: fadeSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s forwards;
+}
+
+.hero > p {
+  opacity: 0;
+  animation: fadeSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+}
+
+.stats-container {
+  opacity: 0;
+  animation: fadeSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards;
+}
+
+.filters {
+  opacity: 0;
+  animation: fadeInScale 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s forwards;
+}
+
+.card {
+  opacity: 0;
+  animation: fadeSlideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.card.skeleton-card {
+  animation: fadeInScale 0.4s ease forwards;
+}
