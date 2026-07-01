@@ -108,8 +108,8 @@ body::after {
 }
 
 .navbar-hero:not(.scrolled) .logo { color: white; }
-.navbar-hero:not(.scrolled) .logo i { color: #0B5A9C; }
-.navbar-hero:not(.scrolled) .logo span span { color: #0B5A9C; }
+.navbar-hero:not(.scrolled) .logo i { color: white; }
+.navbar-hero:not(.scrolled) .logo span span { color: white; }
 
 .logo i { color: var(--blue-main); transition: color 0.3s; }
 .logo span span { color: var(--blue-main); }
@@ -199,7 +199,7 @@ body::after {
 
 .highlight {
   display: inline-block;
-  color: #0B5A9C;
+  color: white;
   position: relative;
 }
 
@@ -208,7 +208,7 @@ body::after {
   position: absolute;
   bottom: 2px; left: 0; right: 0;
   height: 6px;
-  background: #0B5A9C;
+  background: white;
   opacity: 0.3;
   border-radius: 3px;
 }
@@ -271,12 +271,24 @@ body::after {
 /* ---- Filters ---- */
 .filters {
   display: flex;
-  justify-content: center;
   gap: 10px;
-  padding: 36px 5% 28px;
-  flex-wrap: wrap;
+  padding: 36px 20px 28px;
   position: relative;
   z-index: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.filters::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .filters {
+    justify-content: center;
+    padding: 36px 5% 28px;
+  }
 }
 
 .filter-btn {
@@ -293,6 +305,7 @@ body::after {
   text-decoration: none;
   display: inline-flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .filter-btn:hover {
