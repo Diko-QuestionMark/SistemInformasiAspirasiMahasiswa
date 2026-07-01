@@ -1,9 +1,9 @@
 /* ============================================
    ASMAH Design System — Soft & Playful Campus
-   Font: Fredoka One (display) + Inter (body)
+   Font: Plus Jakarta Sans (display) + Inter (body)
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
 :root {
   /* Core Palette (Marine Blue Theme) */
@@ -95,7 +95,7 @@ body::after {
 }
 
 .logo {
-  font-family: 'Fredoka One', cursive;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.6rem;
   font-weight: 400;
   letter-spacing: 0.5px;
@@ -188,7 +188,7 @@ body::after {
 }
 
 .hero h1 {
-  font-family: 'Fredoka One', cursive;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 3.2rem;
   line-height: 1.15;
   margin-bottom: 18px;
@@ -249,7 +249,7 @@ body::after {
 
 .stat-number {
   display: block;
-  font-family: 'Fredoka One', cursive;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 2rem;
   color: white;
 }
@@ -540,7 +540,7 @@ body::after {
 }
 
 .modal-header h2 {
-  font-family: 'Fredoka One', cursive;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.4rem;
   color: var(--ink);
   font-weight: 400;
@@ -768,7 +768,7 @@ input:focus, select:focus, textarea:focus {
 }
 
 .footer-col h4 {
-  font-family: 'Fredoka One', cursive;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.05rem;
   font-weight: 400;
   margin-bottom: 18px;
