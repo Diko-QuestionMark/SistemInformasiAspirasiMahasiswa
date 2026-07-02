@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Penggunaan | ASMAH</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-panduan {
+            background: linear-gradient(160deg, #063C69 0%, #0B5A9C 50%, #4FA3E3 100%);
+            padding: 130px 20px 60px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-panduan h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .hero-panduan p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .panduan-content {
+            max-width: 800px;
+            margin: -30px auto 60px;
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(91,127,232,0.1);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .step-container {
+            margin-bottom: 30px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            background: var(--blue-pale);
+            color: var(--blue-main);
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.5rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            flex-shrink: 0;
+        }
+        
+        .step-text h3 {
+            color: var(--ink);
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            margin-top: 5px;
+        }
+        
+        .step-text p {
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 600px) {
+            .panduan-content { padding: 25px; margin-top: -20px; }
+            .step-container { flex-direction: column; gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-hero">
+        <a href="index.html" class="logo" style="text-decoration:none;">
+            <i class="fa-solid fa-bullhorn"></i>
+            <span>AS<span>MAH</span></span>
+        </a>
+        <a href="index.html" class="btn-primary" style="text-decoration:none;">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda
+        </a>
+    </nav>
+
+    <!-- Hero Panduan -->
+    <header class="hero-panduan">
+        <h1>Panduan Penggunaan</h1>
+        <p>Pelajari cara menyampaikan aspirasi, keluhan, dan berdiskusi demi kampus Polman Babel yang lebih baik.</p>
+    </header>
+
+    <!-- Konten Panduan -->
+    <main class="panduan-content">
+        <div class="step-container">
+            <div class="step-number">1</div>
+            <div class="step-text">
+                <h3>Akses Halaman Utama</h3>
+                <p>Buka halaman utama ASMAH (Aspirasi Mahasiswa). Di sana, Anda dapat melihat daftar aspirasi yang telah dikirimkan oleh mahasiswa lain. Anda dapat menggunakan tombol filter kategori untuk memilah aspirasi terkait Fasilitas, Akademik, atau Organisasi.</p>
+            </div>
+        </div>
+        
+        <div class="step-container">
+            <div class="step-number">2</div>
+            <div class="step-text">
+                <h3>Buat Aspirasi Baru</h3>
+                <p>Klik tombol <strong>"Kirim Aspirasi"</strong> di sudut kanan atas. Sebuah formulir akan muncul. Isikan judul yang jelas, pilih kategori yang tepat, dan jabarkan keluhan atau saran Anda secara rinci. Jika Anda merasa laporan ini sensitif, centang opsi <strong>"Laporan Rahasia"</strong> agar hanya admin yang dapat membacanya.</p>
+            </div>
+        </div>
+
+        <div class="step-container">
+            <div class="step-number">3</div>
+            <div class="step-text">
+                <h3>Pantau Status Laporan</h3>
+                <p>Setiap aspirasi memiliki status yang diperbarui oleh Admin kampus. Status awal adalah <span class="status-badge status-menunggu">Menunggu</span>. Jika admin mulai menindaklanjuti, status berubah menjadi <span class="status-badge status-diproses">Diproses</span>. Dan jika masalah sudah diselesaikan, statusnya menjadi <span class="status-badge status-selesai">Selesai</span>.</p>
+            </div>
+        </div>
+
+        <div class="step-container">
+            <div class="step-number">4</div>
+            <div class="step-text">
+                <h3>Berikan Tanggapan & Dukungan</h3>
+                <p>Klik pada salah satu kartu aspirasi di halaman utama untuk membuka detailnya. Di bagian bawah detail, terdapat kolom komentar. Gunakan fitur ini untuk berdiskusi, menambahkan informasi tambahan, atau sekadar memberikan dukungan terhadap aspirasi sesama mahasiswa.</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="index.html" class="btn-primary" style="text-decoration:none;">Mulai Sampaikan Aspirasi</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <a href="index.html" class="logo" style="text-decoration:none;">
+                    <i class="fa-solid fa-bullhorn"></i>
+                    <span>AS<span>MAH</span></span>
+                </a>
+                <p class="footer-desc">Wadah penyampaian keluh kesah, saran, dan ide untuk kampus Politeknik Manufaktur Negeri Bangka Belitung yang lebih baik.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Tautan Cepat</h4>
+                <ul class="footer-links">
+                    <li><a href="https://polmanbabel.siakadcloud.com/gate/login"><i class="fa-solid fa-chevron-right"></i> Website Polman Babel</a></li>
+                    <li><a href="https://polman-babel.ac.id/"><i class="fa-solid fa-chevron-right"></i> Portal Akademik</a></li>
+                    <li><a href="panduan.html"><i class="fa-solid fa-chevron-right"></i> Panduan Penggunaan</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Hubungi Kami</h4>
+                <ul class="footer-contact">
+                    <li><i class="fa-solid fa-location-dot"></i> Kawasan Industri Air Kantung, Sungailiat, Bangka</li>
+                    <li><i class="fa-solid fa-envelope"></i> helpdesk@polman-babel.ac.id</li>
+                    <li><i class="fa-solid fa-phone"></i> +62 812-3456-7890</li>
+                </ul>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Sistem Informasi Aspirasi Mahasiswa — Politeknik Manufaktur Negeri Bangka Belitung.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for navbar
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 20) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

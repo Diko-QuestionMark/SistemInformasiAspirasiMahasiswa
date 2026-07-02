@@ -81,7 +81,25 @@ async function requestJson(url, options = {}) {
 }
 
 async function loadAspirations() {
-    aspirationsContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center;">Memuat aspirasi...</p>';
+    let skeletons = '';
+    for(let i=0; i<9; i++) {
+        skeletons += `
+            <div class="card skeleton-card">
+                <div class="card-header">
+                    <div class="skeleton skeleton-badge"></div>
+                    <div class="skeleton skeleton-badge"></div>
+                </div>
+                <div class="skeleton skeleton-title"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text short"></div>
+                <div class="card-footer" style="display: flex; justify-content: flex-end; align-items: center;">
+                    <div class="skeleton skeleton-footer"></div>
+                </div>
+            </div>
+        `;
+    }
+    aspirationsContainer.innerHTML = skeletons;
 
     try {
         const data = await requestJson(`${API_BASE}/get-aspirations`);
@@ -127,13 +145,14 @@ function renderAspirations(filterCategory) {
         return;
     }
 
-    filteredData.forEach((item) => {
+    filteredData.forEach((item, index) => {
         const dateObj = new Date(item.created_at);
         const dateStr = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
 
         const card = document.createElement('div');
         card.className = 'card';
         card.dataset.category = item.category;
+        card.style.animationDelay = `${index * 0.05}s`;
         card.onclick = () => openDetailModal(item.id);
 
         card.innerHTML = `

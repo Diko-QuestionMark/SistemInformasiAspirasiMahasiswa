@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin | ASMAH</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Admin-only overrides */
         .hero {
-            background: linear-gradient(160deg, #1e2d6b 0%, #3D5CC7 50%, #5B7FE8 100%);
+            background: linear-gradient(160deg, #052F54 0%, #063C69 50%, #0B5A9C 100%);
             padding: 110px 20px 50px;
         }
         .hero h1 { font-size: 2.6rem; }
 
         /* Admin hero accent blobs toned down */
-        .hero::before { background: rgba(199,184,245,0.12); }
-        .hero::after  { background: rgba(255,211,160,0.10); }
+        .hero::before { background: rgba(11,90,156,0.15); }
+        .hero::after  { background: rgba(11,90,156,0.15); }
 
         .private-badge {
             background: rgba(239,68,68,0.12) !important;
@@ -35,14 +35,14 @@
         }
         .status-select option { color: #2D3358; background: white; }
 
-        /* Admin badge strip: purple accent */
+        /* Admin badge strip: amber accent */
         .admin-badge-strip {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(199,184,245,0.2);
-            border: 1.5px solid rgba(199,184,245,0.4);
-            color: #C7B8F5;
+            background: rgba(217, 119, 6, 0.15);
+            border: 1.5px solid rgba(217, 119, 6, 0.4);
+            color: #F59E0B;
             padding: 5px 14px;
             border-radius: 50px;
             font-size: 0.78rem;
@@ -198,6 +198,6 @@
         </div>
     </footer>
 
-    <script src="admin.js"></script>
+    <script src="js/admin.js"></script>
 </body>
 </html>
