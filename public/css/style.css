@@ -104,15 +104,23 @@ body::after {
   gap: 10px;
   color: var(--ink);
   text-decoration: none;
-  transition: color 0.3s;
+  transition: all 0.3s ease;
 }
 
-.navbar-hero:not(.scrolled) .logo { color: white; }
-.navbar-hero:not(.scrolled) .logo i { color: white; }
-.navbar-hero:not(.scrolled) .logo span span { color: white; }
+.navbar.navbar-hero:not(.scrolled) .logo { color: white; }
+.navbar.navbar-hero:not(.scrolled) .logo i { color: white; }
+.navbar.navbar-hero:not(.scrolled) .logo span span { color: white; }
+.navbar.navbar-hero:not(.scrolled) .logo .nav-logo-img { filter: brightness(0) invert(1); }
 
-.logo i { color: var(--blue-main); transition: color 0.3s; }
-.logo span span { color: var(--blue-main); }
+.logo i { color: var(--blue-main); transition: color 0.3s ease; }
+.logo span span { color: var(--blue-main); transition: color 0.3s ease; }
+
+.nav-logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  transition: filter 0.3s ease;
+}
 
 /* ---- Primary Button ---- */
 .btn-primary {
