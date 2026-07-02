@@ -109,4 +109,5 @@ module.exports = {
   createAdminToken,
   verifyToken,
   getAuthorizationToken,
+  handler: exports.handler,
 };
