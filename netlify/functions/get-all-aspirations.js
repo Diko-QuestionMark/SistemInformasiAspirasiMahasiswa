@@ -1,10 +1,17 @@
 const db = require('./db');
+const { verifyToken, getAuthorizationToken } = require('./auth');
 
 exports.handler = async (event, context) => {
+  const token = getAuthorizationToken(event.headers);
+  if (!verifyToken(token)) {
+    return {
+      statusCode: 401,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Unauthorized' }),
+    };
+  }
+
   try {
-    // Di aplikasi nyata, harus ada validasi Auth Admin di sini!
-    // Untuk prototipe ini, kita kembalikan semua data termasuk yang rahasia.
-    
     const { rows: aspirations } = await db.query(`
       SELECT * FROM aspirations 
       ORDER BY created_at DESC

@@ -1,8 +1,18 @@
 const db = require('./db');
+const { verifyToken, getAuthorizationToken } = require('./auth');
 
 exports.handler = async (event, context) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
+  }
+
+  const token = getAuthorizationToken(event.headers);
+  if (!verifyToken(token)) {
+    return {
+      statusCode: 401,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Unauthorized' }),
+    };
   }
 
   try {

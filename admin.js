@@ -1,14 +1,31 @@
 const API_BASE = '/api';
+const ADMIN_TOKEN_KEY = 'asmah_admin_token';
 let aspirations = [];
 const aspirationsContainer = document.getElementById('aspirationsContainer');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const detailModal = document.getElementById('detailModal');
 const btnCloseDetail = document.getElementById('btnCloseDetail');
 const commentForm = document.getElementById('commentForm');
+const logoutBtn = document.getElementById('logoutBtn');
 let currentActiveAspirationId = null;
 
 function escapeHtml(value) {
     return String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+function getAdminToken() {
+    return localStorage.getItem(ADMIN_TOKEN_KEY);
+}
+
+function logoutAdmin() {
+    localStorage.removeItem(ADMIN_TOKEN_KEY);
+    window.location.href = 'admin-login.html';
+}
+
+function ensureLoggedIn() {
+    if (!getAdminToken()) {
+        window.location.href = 'admin-login.html';
+    }
 }
 
 function getStatusLabel(status) {
@@ -44,9 +61,17 @@ function showToast(message, type = 'success') {
 }
 
 async function requestJson(url, options = {}) {
-    const response = await fetch(url, { headers: { 'Content-Type': 'application/json', ...(options.headers || {}) }, ...options });
+    const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
+    const token = getAdminToken();
+    if (token) headers.Authorization = `Bearer ${token}`;
+
+    const response = await fetch(url, { headers, ...options });
     let payload = null;
     try { payload = await response.json(); } catch (error) { payload = null; }
+    if (response.status === 401) {
+        logoutAdmin();
+        throw new Error('Sesi admin tidak valid. Silakan login kembali.');
+    }
     if (!response.ok) throw new Error(payload?.error || 'Terjadi kesalahan pada server.');
     return payload;
 }
@@ -117,6 +142,9 @@ function setupEventListeners() {
             renderAspirations(event.currentTarget.dataset.filter);
         });
     });
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', logoutAdmin);
+    }
     btnCloseDetail.addEventListener('click', () => detailModal.classList.remove('active'));
     commentForm.addEventListener('submit', handleCommentSubmit);
     window.addEventListener('click', (event) => {
@@ -204,5 +232,6 @@ async function handleCommentSubmit(event) {
     }
 }
 
+ensureLoggedIn();
 setupEventListeners();
 loadAspirations();

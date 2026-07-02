@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin | ASMAH</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo" style="text-decoration:none;">
+            <i class="fa-solid fa-bullhorn"></i>
+            <span>AS<span>MAH</span></span>
+        </a>
+    </nav>
+
+    <main class="login-page">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>Login Admin</h1>
+                <p>Masuk untuk mengelola aspirasi dan melihat laporan rahasia.</p>
+            </div>
+
+            <form id="loginForm" class="login-form">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Masukkan username" autocomplete="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Masukkan password" autocomplete="current-password" required>
+                </div>
+                <button type="submit" class="btn-primary btn-full">Masuk</button>
+                <p class="login-note">Gunakan akun admin untuk mengakses dashboard.</p>
+                <div class="login-error" id="loginError" role="alert" aria-live="polite"></div>
+            </form>
+        </div>
+    </main>
+
+    <script src="admin-login.js"></script>
+</body>
+</html>
