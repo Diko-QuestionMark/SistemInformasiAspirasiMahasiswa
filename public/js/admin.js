@@ -2,13 +2,17 @@ const API_BASE = '/api';
 const ADMIN_TOKEN_KEY = 'asmah_admin_token';
 let aspirations = [];
 const aspirationsContainer = document.getElementById('aspirationsContainer');
-const filterBtns = document.querySelectorAll('.filter-btn');
+const filterBtns = document.querySelectorAll('.filter-btn:not(.status-filter-btn)');
+const statusFilterBtns = document.querySelectorAll('.status-filter-btn');
+const searchInput = document.getElementById('searchInput');
 const detailModal = document.getElementById('detailModal');
 const btnCloseDetail = document.getElementById('btnCloseDetail');
 const commentForm = document.getElementById('commentForm');
 const logoutBtn = document.getElementById('logoutBtn');
 let currentActiveAspirationId = null;
 let currentPage = 1;
+let currentStatusFilter = 'all';
+let currentSearchQuery = '';
 const itemsPerPage = 12;
 
 function escapeHtml(value) {
@@ -113,9 +117,24 @@ async function loadAspirations() {
 
 function renderAspirations(filterCategory) {
     aspirationsContainer.innerHTML = '';
-    const filteredData = filterCategory === 'all' ? [...aspirations] : aspirations.filter((item) => item.category === filterCategory);
+    let filteredData = filterCategory === 'all' ? [...aspirations] : aspirations.filter((item) => item.category === filterCategory);
+    
+    // Apply status filter
+    if (currentStatusFilter !== 'all') {
+        filteredData = filteredData.filter((item) => item.status === currentStatusFilter);
+    }
+    
+    // Apply search filter
+    if (currentSearchQuery) {
+        const q = currentSearchQuery.toLowerCase();
+        filteredData = filteredData.filter((item) => 
+            (item.title || '').toLowerCase().includes(q) || 
+            (item.description || '').toLowerCase().includes(q)
+        );
+    }
+    
     if (filteredData.length === 0) {
-        aspirationsContainer.innerHTML = '<p style="text-align: center;">Tidak ada data.</p>';
+        aspirationsContainer.innerHTML = '<p style="text-align: center;">Tidak ada data yang cocok.</p>';
         return;
     }
 
@@ -217,6 +236,9 @@ function renderAspirations(filterCategory) {
 
 function updateStats() {
     document.getElementById('statTotal').innerText = aspirations.length;
+    document.getElementById('statMenunggu').innerText = aspirations.filter((item) => item.status === 'menunggu').length;
+    document.getElementById('statDiproses').innerText = aspirations.filter((item) => item.status === 'diproses').length;
+    document.getElementById('statSelesai').innerText = aspirations.filter((item) => item.status === 'selesai').length;
     document.getElementById('statPrivate').innerText = aspirations.filter((item) => item.is_private).length;
 }
 
@@ -225,10 +247,33 @@ function setupEventListeners() {
         btn.addEventListener('click', (event) => {
             filterBtns.forEach((item) => item.classList.remove('active'));
             event.currentTarget.classList.add('active');
-            currentPage = 1; // Reset limit on filter change
+            currentPage = 1;
             renderAspirations(event.currentTarget.dataset.filter);
         });
     });
+    
+    statusFilterBtns.forEach((btn) => {
+        btn.addEventListener('click', (event) => {
+            statusFilterBtns.forEach((item) => item.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            currentStatusFilter = event.currentTarget.dataset.status;
+            currentPage = 1;
+            renderAspirations(getActiveFilter());
+        });
+    });
+    
+    if (searchInput) {
+        let debounceTimer;
+        searchInput.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                currentSearchQuery = searchInput.value.trim();
+                currentPage = 1;
+                renderAspirations(getActiveFilter());
+            }, 300);
+        });
+    }
+    
     if (logoutBtn) {
         logoutBtn.addEventListener('click', logoutAdmin);
     }

@@ -74,16 +74,28 @@
         <div class="stats-container">
             <div class="stat-box">
                 <span class="stat-number" id="statTotal">0</span>
-                <span class="stat-label">Total Semua Aspirasi</span>
+                <span class="stat-label">Total Aspirasi</span>
             </div>
             <div class="stat-box">
-                <span class="stat-number" id="statPrivate">0</span>
-                <span class="stat-label">Laporan Rahasia</span>
+                <span class="stat-number" id="statMenunggu" style="color:#F59E0B;">0</span>
+                <span class="stat-label">Menunggu</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number" id="statDiproses" style="color:#3B82F6;">0</span>
+                <span class="stat-label">Diproses</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number" id="statSelesai" style="color:#10B981;">0</span>
+                <span class="stat-label">Selesai</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number" id="statPrivate" style="color:#EF4444;">0</span>
+                <span class="stat-label">Rahasia</span>
             </div>
         </div>
     </header>
 
-    <!-- Filters -->
+    <!-- Filters: Kategori -->
     <section class="filters">
         <button class="filter-btn active" data-filter="all">
             <i class="fa-solid fa-layer-group" style="margin-right:6px;font-size:0.8em;"></i>Semua
@@ -97,6 +109,28 @@
         <button class="filter-btn" data-filter="Organisasi">
             <i class="fa-solid fa-users" style="margin-right:6px;font-size:0.8em;"></i>Organisasi
         </button>
+    </section>
+
+    <!-- Filters: Status + Search -->
+    <section class="filters" style="padding-top: 0; gap: 8px; flex-wrap: wrap;">
+        <div style="display:flex; gap:8px; flex-wrap:wrap; flex:1;">
+            <button class="filter-btn status-filter-btn active" data-status="all">
+                <i class="fa-solid fa-list" style="margin-right:6px;font-size:0.8em;"></i>Semua Status
+            </button>
+            <button class="filter-btn status-filter-btn" data-status="menunggu" style="--accent:#F59E0B;">
+                <i class="fa-solid fa-clock" style="margin-right:6px;font-size:0.8em;color:#F59E0B;"></i>Menunggu
+            </button>
+            <button class="filter-btn status-filter-btn" data-status="diproses" style="--accent:#3B82F6;">
+                <i class="fa-solid fa-spinner" style="margin-right:6px;font-size:0.8em;color:#3B82F6;"></i>Diproses
+            </button>
+            <button class="filter-btn status-filter-btn" data-status="selesai" style="--accent:#10B981;">
+                <i class="fa-solid fa-circle-check" style="margin-right:6px;font-size:0.8em;color:#10B981;"></i>Selesai
+            </button>
+        </div>
+        <div style="position:relative; min-width:220px; max-width:320px; flex:1;">
+            <i class="fa-solid fa-magnifying-glass" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:0.85rem;"></i>
+            <input type="text" id="searchInput" placeholder="Cari judul atau isi aspirasi..." style="width:100%; padding:10px 14px 10px 36px; border:1.5px solid var(--border); border-radius:12px; font-family:'Inter',sans-serif; font-size:0.88rem; background:var(--surface); color:var(--ink); transition: border 0.2s;" />
+        </div>
     </section>
 
     <!-- Cards -->
