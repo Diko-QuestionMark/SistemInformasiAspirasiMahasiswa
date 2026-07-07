@@ -10,11 +10,28 @@ const btnOpenForm = document.getElementById('btnOpenForm');
 const btnCloseForm = document.getElementById('btnCloseForm');
 const aspirationForm = document.getElementById('aspirationForm');
 
+const privateInfoIcon = document.getElementById('privateInfoIcon');
+const privateInfoText = document.getElementById('privateInfoText');
+
+if (privateInfoIcon && privateInfoText) {
+    privateInfoIcon.addEventListener('click', () => {
+        if (privateInfoText.style.display === 'none') {
+            privateInfoText.style.display = 'block';
+            privateInfoIcon.style.color = 'var(--blue-main)';
+        } else {
+            privateInfoText.style.display = 'none';
+            privateInfoIcon.style.color = 'var(--muted)';
+        }
+    });
+}
+
 const detailModal = document.getElementById('detailModal');
 const btnCloseDetail = document.getElementById('btnCloseDetail');
 const commentForm = document.getElementById('commentForm');
 
 let currentActiveAspirationId = null;
+let currentPage = 1;
+const itemsPerPage = 12;
 
 function escapeHtml(value) {
     return String(value ?? '')
@@ -82,7 +99,7 @@ async function requestJson(url, options = {}) {
 
 async function loadAspirations() {
     let skeletons = '';
-    for(let i=0; i<9; i++) {
+    for(let i=0; i<12; i++) {
         skeletons += `
             <div class="card skeleton-card">
                 <div class="card-header">
@@ -145,7 +162,11 @@ function renderAspirations(filterCategory) {
         return;
     }
 
-    filteredData.forEach((item, index) => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const itemsToShow = filteredData.slice(startIndex, endIndex);
+
+    itemsToShow.forEach((item, index) => {
         const dateObj = new Date(item.created_at);
         const dateStr = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
 
@@ -171,6 +192,69 @@ function renderAspirations(filterCategory) {
 
         aspirationsContainer.appendChild(card);
     });
+
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    if (totalPages > 1) {
+        const paginationContainer = document.createElement('div');
+        paginationContainer.style.gridColumn = '1 / -1';
+        paginationContainer.style.display = 'flex';
+        paginationContainer.style.justifyContent = 'center';
+        paginationContainer.style.gap = '8px';
+        paginationContainer.style.marginTop = '30px';
+        paginationContainer.style.flexWrap = 'wrap';
+
+        const maxVisiblePages = 20;
+        let pages = [];
+
+        if (totalPages <= maxVisiblePages) {
+            for (let i = 1; i <= totalPages; i++) {
+                pages.push(i);
+            }
+        } else {
+            pages.push(1);
+            let startPage = Math.max(2, currentPage - 8);
+            let endPage = Math.min(totalPages - 1, currentPage + 8);
+            
+            if (startPage === 2) {
+                endPage = Math.min(totalPages - 1, 2 + 16);
+            }
+            if (endPage === totalPages - 1) {
+                startPage = Math.max(2, totalPages - 1 - 16);
+            }
+
+            if (startPage > 2) pages.push('...');
+            for (let i = startPage; i <= endPage; i++) pages.push(i);
+            if (endPage < totalPages - 1) pages.push('...');
+            
+            pages.push(totalPages);
+        }
+
+        pages.forEach(p => {
+            if (p === '...') {
+                const ellipsis = document.createElement('span');
+                ellipsis.innerText = '...';
+                ellipsis.style.padding = '8px 4px';
+                ellipsis.style.color = 'var(--muted)';
+                paginationContainer.appendChild(ellipsis);
+            } else {
+                const pageBtn = document.createElement('button');
+                pageBtn.innerText = p;
+                pageBtn.className = p === currentPage ? 'btn-primary' : 'filter-btn';
+                pageBtn.style.padding = '8px 14px';
+                pageBtn.style.minWidth = '40px';
+                pageBtn.onclick = () => {
+                    currentPage = p;
+                    renderAspirations(filterCategory);
+                    const filtersSection = document.querySelector('.filters');
+                    if (filtersSection) {
+                        filtersSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                };
+                paginationContainer.appendChild(pageBtn);
+            }
+        });
+        aspirationsContainer.appendChild(paginationContainer);
+    }
 }
 
 function updateStats() {
@@ -184,6 +268,7 @@ function setupEventListeners() {
         btn.addEventListener('click', (event) => {
             filterBtns.forEach((item) => item.classList.remove('active'));
             event.currentTarget.classList.add('active');
+            currentPage = 1; // Reset limit on filter change
             renderAspirations(event.currentTarget.dataset.filter);
         });
     });

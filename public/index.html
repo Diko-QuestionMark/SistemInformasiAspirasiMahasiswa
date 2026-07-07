@@ -7,19 +7,13 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/components/navbar.js"></script>
+    <script src="js/components/footer.js"></script>
 </head>
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-hero">
-        <a href="#" class="logo" style="text-decoration:none;">
-            <img src="images/logo.png" alt="Polman Babel" class="nav-logo-img">
-            <span>AS<span>MAH</span></span>
-        </a>
-        <button class="btn-primary" id="btnOpenForm">
-            <i class="fa-solid fa-plus"></i> Kirim Aspirasi
-        </button>
-    </nav>
+    <app-navbar type="index"></app-navbar>
 
     <!-- Hero -->
     <header class="hero">
@@ -79,7 +73,7 @@
             <form id="aspirationForm">
                 <div class="form-group">
                     <label for="title"><i class="fa-solid fa-pen" style="margin-right:5px;color:var(--blue-main);"></i>Judul Aspirasi</label>
-                    <input type="text" id="title" placeholder="Contoh: AC Kelas 2C Rusak" maxlength="80" required>
+                    <input type="text" id="title" placeholder="Apa yang ingin kamu sampaikan?" maxlength="80" required>
                 </div>
                 <div class="form-group">
                     <label for="category"><i class="fa-solid fa-tag" style="margin-right:5px;color:var(--blue-main);"></i>Kategori</label>
@@ -97,11 +91,16 @@
                 </div>
                 <div class="form-group form-row">
                     <div class="checkbox-container" style="display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:5px;">
-                        <div class="checkbox-group">
+                        <div class="checkbox-group" style="align-items: center; gap: 5px;">
                             <input type="checkbox" id="isPrivate">
-                            <label for="isPrivate" style="color:#DC2626;font-weight:700;cursor:pointer;">
+                            <label for="isPrivate" style="color:#DC2626;font-weight:700;cursor:pointer;margin:0;">
                                 <i class="fa-solid fa-lock" style="margin-right:4px;"></i> Laporan Rahasia
                             </label>
+                            <i class="fa-solid fa-circle-info" id="privateInfoIcon" style="color:var(--muted);cursor:pointer;font-size:14px;" title="Klik untuk penjelasan"></i>
+                        </div>
+                        <div id="privateInfoText" style="display:none; font-size:12px; color:var(--muted); margin-top:6px; background:var(--bg); padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
+                            <i class="fa-solid fa-circle-exclamation" style="color:var(--blue-main); margin-right:4px;"></i>
+                            Jika dicentang, aspirasi ini <strong>tidak akan ditampilkan di halaman publik</strong> dan hanya dapat dilihat oleh Admin ASMAH. Gunakan fitur ini untuk menyampaikan keluhan sensitif yang tidak ingin dibaca oleh mahasiswa lain.
                         </div>
                     </div>
                 </div>
@@ -146,42 +145,7 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-col">
-                <a href="index.html" class="logo" style="text-decoration:none;">
-                    <i class="fa-solid fa-bullhorn"></i>
-                    <span>AS<span>MAH</span></span>
-                </a>
-                <p class="footer-desc">Wadah penyampaian keluh kesah, saran, dan ide untuk kampus Politeknik Manufaktur Negeri Bangka Belitung yang lebih baik.</p>
-                <a href="admin-login.html" class="admin-link"><i class="fa-solid fa-user-shield"></i> Login Admin</a>
-            </div>
-            <div class="footer-col">
-                <h4>Tautan Cepat</h4>
-                <ul class="footer-links">
-                    <li><a href="https://polman-babel.ac.id/"><i class="fa-solid fa-chevron-right"></i> Website Polman Babel</a></li>
-                    <li><a href="https://polmanbabel.siakadcloud.com/gate/login"><i class="fa-solid fa-chevron-right"></i> Portal Akademik</a></li>
-                    <li><a href="panduan.html"><i class="fa-solid fa-chevron-right"></i> Panduan Penggunaan</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Hubungi Kami</h4>
-                <ul class="footer-contact">
-                    <li><i class="fa-solid fa-location-dot"></i> Kawasan Industri Air Kantung, Sungailiat, Bangka</li>
-                    <li><i class="fa-solid fa-envelope"></i> helpdesk@polman-babel.ac.id</li>
-                    <li><i class="fa-solid fa-phone"></i> +62 812-3456-7890</li>
-                </ul>
-                <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Sistem Informasi Aspirasi Mahasiswa — Politeknik Manufaktur Negeri Bangka Belitung.</p>
-        </div>
-    </footer>
+    <app-footer type="public"></app-footer>
 
     <script src="js/app.js"></script>
 </body>

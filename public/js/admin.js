@@ -8,6 +8,8 @@ const btnCloseDetail = document.getElementById('btnCloseDetail');
 const commentForm = document.getElementById('commentForm');
 const logoutBtn = document.getElementById('logoutBtn');
 let currentActiveAspirationId = null;
+let currentPage = 1;
+const itemsPerPage = 12;
 
 function escapeHtml(value) {
     return String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -77,7 +79,24 @@ async function requestJson(url, options = {}) {
 }
 
 async function loadAspirations() {
-    aspirationsContainer.innerHTML = '<p style="text-align: center;">Memuat aspirasi...</p>';
+    let skeletons = '';
+    for(let i=0; i<12; i++) {
+        skeletons += `
+            <div class="card skeleton-card">
+                <div class="card-header">
+                    <div class="skeleton skeleton-badge"></div>
+                    <div class="skeleton skeleton-badge"></div>
+                </div>
+                <div class="skeleton skeleton-title"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text short"></div>
+                <div class="card-footer" style="display: flex; justify-content: flex-end;">
+                    <div class="skeleton skeleton-footer"></div>
+                </div>
+            </div>
+        `;
+    }
+    aspirationsContainer.innerHTML = skeletons;
     try {
         const data = await requestJson(`${API_BASE}/get-all-aspirations`);
         aspirations = Array.isArray(data) ? data : [];
@@ -100,7 +119,11 @@ function renderAspirations(filterCategory) {
         return;
     }
 
-    filteredData.forEach((item) => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const itemsToShow = filteredData.slice(startIndex, endIndex);
+
+    itemsToShow.forEach((item) => {
         const dateObj = new Date(item.created_at);
         const dateStr = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
         
@@ -127,6 +150,69 @@ function renderAspirations(filterCategory) {
         `;
         aspirationsContainer.appendChild(card);
     });
+
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    if (totalPages > 1) {
+        const paginationContainer = document.createElement('div');
+        paginationContainer.style.gridColumn = '1 / -1';
+        paginationContainer.style.display = 'flex';
+        paginationContainer.style.justifyContent = 'center';
+        paginationContainer.style.gap = '8px';
+        paginationContainer.style.marginTop = '30px';
+        paginationContainer.style.flexWrap = 'wrap';
+
+        const maxVisiblePages = 20;
+        let pages = [];
+
+        if (totalPages <= maxVisiblePages) {
+            for (let i = 1; i <= totalPages; i++) {
+                pages.push(i);
+            }
+        } else {
+            pages.push(1);
+            let startPage = Math.max(2, currentPage - 8);
+            let endPage = Math.min(totalPages - 1, currentPage + 8);
+            
+            if (startPage === 2) {
+                endPage = Math.min(totalPages - 1, 2 + 16);
+            }
+            if (endPage === totalPages - 1) {
+                startPage = Math.max(2, totalPages - 1 - 16);
+            }
+
+            if (startPage > 2) pages.push('...');
+            for (let i = startPage; i <= endPage; i++) pages.push(i);
+            if (endPage < totalPages - 1) pages.push('...');
+            
+            pages.push(totalPages);
+        }
+
+        pages.forEach(p => {
+            if (p === '...') {
+                const ellipsis = document.createElement('span');
+                ellipsis.innerText = '...';
+                ellipsis.style.padding = '8px 4px';
+                ellipsis.style.color = 'var(--muted)';
+                paginationContainer.appendChild(ellipsis);
+            } else {
+                const pageBtn = document.createElement('button');
+                pageBtn.innerText = p;
+                pageBtn.className = p === currentPage ? 'btn-primary' : 'filter-btn';
+                pageBtn.style.padding = '8px 14px';
+                pageBtn.style.minWidth = '40px';
+                pageBtn.onclick = () => {
+                    currentPage = p;
+                    renderAspirations(filterCategory);
+                    const filtersSection = document.querySelector('.filters');
+                    if (filtersSection) {
+                        filtersSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                };
+                paginationContainer.appendChild(pageBtn);
+            }
+        });
+        aspirationsContainer.appendChild(paginationContainer);
+    }
 }
 
 function updateStats() {
@@ -139,6 +225,7 @@ function setupEventListeners() {
         btn.addEventListener('click', (event) => {
             filterBtns.forEach((item) => item.classList.remove('active'));
             event.currentTarget.classList.add('active');
+            currentPage = 1; // Reset limit on filter change
             renderAspirations(event.currentTarget.dataset.filter);
         });
     });
@@ -210,6 +297,22 @@ async function updateStatus() {
             body: JSON.stringify({ id: currentActiveAspirationId, status: newStatus })
         });
         showToast('Status berhasil diubah!', 'success');
+        loadAspirations();
+    } catch (error) {
+        showToast(error.message, 'error');
+    }
+}
+
+async function deleteAspiration() {
+    if (!confirm('Apakah Anda yakin ingin menghapus aspirasi ini secara permanen?')) return;
+    
+    try {
+        await requestJson(`${API_BASE}/delete-aspiration`, {
+            method: 'DELETE',
+            body: JSON.stringify({ id: currentActiveAspirationId })
+        });
+        showToast('Aspirasi berhasil dihapus!', 'success');
+        detailModal.classList.remove('active');
         loadAspirations();
     } catch (error) {
         showToast(error.message, 'error');

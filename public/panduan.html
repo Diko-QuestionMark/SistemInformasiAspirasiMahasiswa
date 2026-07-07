@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/components/navbar.js"></script>
+    <script src="js/components/footer.js"></script>
     <style>
         .hero-panduan {
             background: linear-gradient(160deg, #063C69 0%, #0B5A9C 50%, #4FA3E3 100%);
@@ -82,15 +84,7 @@
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-hero">
-        <a href="index.html" class="logo" style="text-decoration:none;">
-        <img src="images/logo.png" alt="Polman Babel" class="nav-logo-img">
-        <span>AS<span>MAH</span></span>
-    </a>
-        <a href="index.html" class="btn-primary" style="text-decoration:none;">
-            <i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda
-        </a>
-    </nav>
+    <app-navbar type="panduan"></app-navbar>
 
     <!-- Hero Panduan -->
     <header class="hero-panduan">
@@ -132,47 +126,10 @@
             </div>
         </div>
         
-        <div style="text-align: center; margin-top: 50px;">
-            <a href="index.html" class="btn-primary" style="text-decoration:none;">Mulai Sampaikan Aspirasi</a>
-        </div>
+
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-col">
-                <a href="index.html" class="logo" style="text-decoration:none;">
-                    <i class="fa-solid fa-bullhorn"></i>
-                    <span>AS<span>MAH</span></span>
-                </a>
-                <p class="footer-desc">Wadah penyampaian keluh kesah, saran, dan ide untuk kampus Politeknik Manufaktur Negeri Bangka Belitung yang lebih baik.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Tautan Cepat</h4>
-                <ul class="footer-links">
-                    <li><a href="https://polmanbabel.siakadcloud.com/gate/login"><i class="fa-solid fa-chevron-right"></i> Website Polman Babel</a></li>
-                    <li><a href="https://polman-babel.ac.id/"><i class="fa-solid fa-chevron-right"></i> Portal Akademik</a></li>
-                    <li><a href="panduan.html"><i class="fa-solid fa-chevron-right"></i> Panduan Penggunaan</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Hubungi Kami</h4>
-                <ul class="footer-contact">
-                    <li><i class="fa-solid fa-location-dot"></i> Kawasan Industri Air Kantung, Sungailiat, Bangka</li>
-                    <li><i class="fa-solid fa-envelope"></i> helpdesk@polman-babel.ac.id</li>
-                    <li><i class="fa-solid fa-phone"></i> +62 812-3456-7890</li>
-                </ul>
-                <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Sistem Informasi Aspirasi Mahasiswa — Politeknik Manufaktur Negeri Bangka Belitung.</p>
-        </div>
-    </footer>
+    <app-footer type="panduan"></app-footer>
 
     <script>
         // Smooth scroll for navbar

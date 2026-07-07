@@ -146,6 +146,28 @@ body::after {
   background: linear-gradient(135deg, #1C74BD 0%, var(--blue-main) 100%);
 }
 
+.btn-danger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.2);
+}
+
+.btn-danger:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(220, 38, 38, 0.4);
+}
+
 /* Navbar-hero: ghost white button before scroll */
 .navbar-hero:not(.scrolled) .btn-primary {
   background: rgba(255,255,255,0.2);
