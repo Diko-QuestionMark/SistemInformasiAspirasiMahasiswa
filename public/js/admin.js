@@ -115,7 +115,9 @@ async function loadAspirations() {
             if (activeItem && detailModal.classList.contains('active')) fillDetailModal(activeItem);
         }
     } catch (error) {
+        aspirations = [];
         aspirationsContainer.innerHTML = `<p style="color: #fca5a5; text-align: center;">${escapeHtml(error.message)}</p>`;
+        updateStats();
     }
 }
 
