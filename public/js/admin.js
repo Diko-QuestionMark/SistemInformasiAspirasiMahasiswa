@@ -5,12 +5,16 @@ const aspirationsContainer = document.getElementById('aspirationsContainer');
 const filterBtns = document.querySelectorAll('.filter-btn:not(.status-filter-btn)');
 const statusFilterBtns = document.querySelectorAll('.status-filter-btn');
 const searchInput = document.getElementById('searchInput');
+const mobileFilterCategory = document.getElementById('mobileFilterCategory');
+const mobileFilterStatus = document.getElementById('mobileFilterStatus');
+const mobileSearchInput = document.getElementById('mobileSearchInput');
 const detailModal = document.getElementById('detailModal');
 const btnCloseDetail = document.getElementById('btnCloseDetail');
 const commentForm = document.getElementById('commentForm');
 const logoutBtn = document.getElementById('logoutBtn');
 let currentActiveAspirationId = null;
 let currentPage = 1;
+let currentCategoryFilter = 'all';
 let currentStatusFilter = 'all';
 let currentSearchQuery = '';
 const itemsPerPage = 12;
@@ -42,7 +46,7 @@ function getStatusLabel(status) {
 }
 
 function getActiveFilter() {
-    return document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+    return currentCategoryFilter;
 }
 
 function showToast(message, type = 'success') {
@@ -243,15 +247,18 @@ function updateStats() {
 }
 
 function setupEventListeners() {
+    // Desktop: category buttons
     filterBtns.forEach((btn) => {
         btn.addEventListener('click', (event) => {
             filterBtns.forEach((item) => item.classList.remove('active'));
             event.currentTarget.classList.add('active');
+            currentCategoryFilter = event.currentTarget.dataset.filter;
             currentPage = 1;
-            renderAspirations(event.currentTarget.dataset.filter);
+            renderAspirations(getActiveFilter());
         });
     });
     
+    // Desktop: status buttons
     statusFilterBtns.forEach((btn) => {
         btn.addEventListener('click', (event) => {
             statusFilterBtns.forEach((item) => item.classList.remove('active'));
@@ -262,12 +269,54 @@ function setupEventListeners() {
         });
     });
     
+    // Desktop: search
     if (searchInput) {
         let debounceTimer;
         searchInput.addEventListener('input', () => {
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
                 currentSearchQuery = searchInput.value.trim();
+                if (mobileSearchInput) mobileSearchInput.value = currentSearchQuery;
+                currentPage = 1;
+                renderAspirations(getActiveFilter());
+            }, 300);
+        });
+    }
+    
+    // Mobile: category dropdown
+    if (mobileFilterCategory) {
+        mobileFilterCategory.addEventListener('change', () => {
+            currentCategoryFilter = mobileFilterCategory.value;
+            // Sync desktop buttons
+            filterBtns.forEach((btn) => {
+                btn.classList.toggle('active', btn.dataset.filter === currentCategoryFilter);
+            });
+            currentPage = 1;
+            renderAspirations(getActiveFilter());
+        });
+    }
+    
+    // Mobile: status dropdown
+    if (mobileFilterStatus) {
+        mobileFilterStatus.addEventListener('change', () => {
+            currentStatusFilter = mobileFilterStatus.value;
+            // Sync desktop buttons
+            statusFilterBtns.forEach((btn) => {
+                btn.classList.toggle('active', btn.dataset.status === currentStatusFilter);
+            });
+            currentPage = 1;
+            renderAspirations(getActiveFilter());
+        });
+    }
+    
+    // Mobile: search
+    if (mobileSearchInput) {
+        let mobileDebounce;
+        mobileSearchInput.addEventListener('input', () => {
+            clearTimeout(mobileDebounce);
+            mobileDebounce = setTimeout(() => {
+                currentSearchQuery = mobileSearchInput.value.trim();
+                if (searchInput) searchInput.value = currentSearchQuery;
                 currentPage = 1;
                 renderAspirations(getActiveFilter());
             }, 300);

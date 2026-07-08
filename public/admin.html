@@ -13,7 +13,8 @@
         /* Admin-only overrides */
         .hero {
             background: linear-gradient(160deg, #052F54 0%, #063C69 50%, #0B5A9C 100%);
-            padding: 110px 20px 50px;
+            padding: 110px 20px 60px;
+            margin-bottom: 10px;
         }
         .hero h1 { font-size: 2.6rem; }
 
@@ -51,6 +52,47 @@
             font-weight: 700;
             letter-spacing: 0.5px;
             margin-bottom: 16px;
+        }
+
+        /* Mobile dropdown filters */
+        .mobile-filters {
+            display: none;
+        }
+        .mobile-filter-select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            background: var(--surface);
+            color: var(--ink);
+            cursor: pointer;
+            appearance: auto;
+        }
+        .desktop-filters {
+            display: flex;
+        }
+
+        @media (max-width: 1024px) {
+            .desktop-filters {
+                display: none !important;
+            }
+            .mobile-filters {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                padding: 0 20px 10px;
+                max-width: 900px;
+                margin: 0 auto;
+            }
+            .mobile-filter-row {
+                display: flex;
+                gap: 8px;
+            }
+            .mobile-filter-row > * {
+                flex: 1;
+            }
         }
     </style>
 </head>
@@ -95,8 +137,8 @@
         </div>
     </header>
 
-    <!-- Filters: Kategori -->
-    <section class="filters">
+    <!-- Filters: Desktop (buttons) -->
+    <section class="filters desktop-filters">
         <button class="filter-btn active" data-filter="all">
             <i class="fa-solid fa-layer-group" style="margin-right:6px;font-size:0.8em;"></i>Semua
         </button>
@@ -111,8 +153,7 @@
         </button>
     </section>
 
-    <!-- Filters: Status + Search -->
-    <section class="filters" style="padding-top: 0; gap: 8px; flex-wrap: wrap;">
+    <section class="filters desktop-filters" style="padding-top: 0; gap: 8px; flex-wrap: wrap;">
         <div style="display:flex; gap:8px; flex-wrap:wrap; flex:1;">
             <button class="filter-btn status-filter-btn active" data-status="all">
                 <i class="fa-solid fa-list" style="margin-right:6px;font-size:0.8em;"></i>Semua Status
@@ -132,6 +173,28 @@
             <input type="text" id="searchInput" placeholder="Cari judul atau isi aspirasi..." style="width:100%; padding:10px 14px 10px 36px; border:1.5px solid var(--border); border-radius:12px; font-family:'Inter',sans-serif; font-size:0.88rem; background:var(--surface); color:var(--ink); transition: border 0.2s;" />
         </div>
     </section>
+
+    <!-- Filters: Mobile (dropdowns) -->
+    <div class="mobile-filters">
+        <div class="mobile-filter-row">
+            <select class="mobile-filter-select" id="mobileFilterCategory">
+                <option value="all">📂 Semua Kategori</option>
+                <option value="Fasilitas">🏛️ Fasilitas</option>
+                <option value="Akademik">🎓 Akademik</option>
+                <option value="Organisasi">👥 Organisasi</option>
+            </select>
+            <select class="mobile-filter-select" id="mobileFilterStatus">
+                <option value="all">📋 Semua Status</option>
+                <option value="menunggu">⏳ Menunggu</option>
+                <option value="diproses">🔄 Diproses</option>
+                <option value="selesai">✅ Selesai</option>
+            </select>
+        </div>
+        <div style="position:relative;">
+            <i class="fa-solid fa-magnifying-glass" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:0.85rem;"></i>
+            <input type="text" id="mobileSearchInput" placeholder="Cari judul atau isi aspirasi..." class="mobile-filter-select" style="padding-left:36px;" />
+        </div>
+    </div>
 
     <!-- Cards -->
     <main class="aspirations-grid" id="aspirationsContainer"></main>
