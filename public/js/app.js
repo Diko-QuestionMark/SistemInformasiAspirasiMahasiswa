@@ -28,9 +28,11 @@ if (privateInfoIcon && privateInfoText) {
 const detailModal = document.getElementById('detailModal');
 const btnCloseDetail = document.getElementById('btnCloseDetail');
 const commentForm = document.getElementById('commentForm');
+const searchInput = document.getElementById('searchInput');
 
 let currentActiveAspirationId = null;
 let currentPage = 1;
+let currentSearchQuery = '';
 const itemsPerPage = 12;
 
 function escapeHtml(value) {
@@ -145,9 +147,17 @@ function init() {
 function renderAspirations(filterCategory) {
     aspirationsContainer.innerHTML = '';
 
-    const filteredData = filterCategory === 'all'
+    let filteredData = filterCategory === 'all'
         ? [...aspirations]
         : aspirations.filter((item) => item.category === filterCategory);
+
+    if (currentSearchQuery) {
+        const query = currentSearchQuery.toLowerCase();
+        filteredData = filteredData.filter(item => 
+            item.title.toLowerCase().includes(query) || 
+            item.description.toLowerCase().includes(query)
+        );
+    }
 
     filteredData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
@@ -269,9 +279,21 @@ function setupEventListeners() {
             filterBtns.forEach((item) => item.classList.remove('active'));
             event.currentTarget.classList.add('active');
             currentPage = 1; // Reset limit on filter change
-            renderAspirations(event.currentTarget.dataset.filter);
+            renderAspirations(getActiveFilter());
         });
     });
+
+    if (searchInput) {
+        let debounceTimer;
+        searchInput.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                currentSearchQuery = searchInput.value.trim();
+                currentPage = 1;
+                renderAspirations(getActiveFilter());
+            }, 300);
+        });
+    }
 
     btnOpenForm.addEventListener('click', () => formModal.classList.add('active'));
     btnCloseForm.addEventListener('click', () => formModal.classList.remove('active'));
