@@ -398,19 +398,51 @@ async function updateStatus() {
 }
 
 async function deleteAspiration() {
-    if (!confirm('Apakah Anda yakin ingin menghapus aspirasi ini secara permanen?')) return;
-    
-    try {
-        await requestJson(`${API_BASE}/delete-aspiration`, {
-            method: 'DELETE',
-            body: JSON.stringify({ id: currentActiveAspirationId })
-        });
-        showToast('Aspirasi berhasil dihapus!', 'success');
-        detailModal.classList.remove('active');
-        loadAspirations();
-    } catch (error) {
-        showToast(error.message, 'error');
-    }
+    // Show custom confirmation modal
+    const deleteModal = document.getElementById('deleteConfirmModal');
+    deleteModal.classList.add('active');
+}
+
+// Wire up confirmation modal buttons
+const deleteConfirmModal = document.getElementById('deleteConfirmModal');
+const btnCancelDelete = document.getElementById('btnCancelDelete');
+const btnConfirmDelete = document.getElementById('btnConfirmDelete');
+
+if (btnCancelDelete) {
+    btnCancelDelete.addEventListener('click', () => {
+        deleteConfirmModal.classList.remove('active');
+    });
+}
+
+if (btnConfirmDelete) {
+    btnConfirmDelete.addEventListener('click', async () => {
+        btnConfirmDelete.disabled = true;
+        btnConfirmDelete.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i>Menghapus...';
+        try {
+            await requestJson(`${API_BASE}/delete-aspiration`, {
+                method: 'DELETE',
+                body: JSON.stringify({ id: currentActiveAspirationId })
+            });
+            showToast('Aspirasi berhasil dihapus!', 'success');
+            deleteConfirmModal.classList.remove('active');
+            detailModal.classList.remove('active');
+            loadAspirations();
+        } catch (error) {
+            showToast(error.message, 'error');
+        } finally {
+            btnConfirmDelete.disabled = false;
+            btnConfirmDelete.innerHTML = '<i class="fa-solid fa-trash" style="margin-right:6px;"></i>Ya, Hapus';
+        }
+    });
+}
+
+// Close delete modal on overlay click
+if (deleteConfirmModal) {
+    deleteConfirmModal.addEventListener('click', (event) => {
+        if (event.target === deleteConfirmModal) {
+            deleteConfirmModal.classList.remove('active');
+        }
+    });
 }
 
 async function handleCommentSubmit(event) {
